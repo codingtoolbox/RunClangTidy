@@ -11,7 +11,7 @@ Plugin can be configured via _Tools|Options|clang-tools_
   
   * _clang-tidy location_: path to clang-tidy
   
-  * _compile command__: command used in clang compilation database command string
+  * _compile command_: command used in clang compilation database command string
   
 Plugin adds following menu commands:
 
