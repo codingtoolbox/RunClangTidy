@@ -489,10 +489,6 @@
     <Content Include="Command\Resources\GenerateDatabase.png" />
     <Content Include="Command\Resources\RunTidy.png" />
     <Content Include="Command\Resources\RunTidyFile.png" />
-    <Content Include="Newtonsoft.Json.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
