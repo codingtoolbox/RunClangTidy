@@ -11,11 +11,12 @@ using VsUtil.Util;
 
 namespace CodingToolBox.Service
 {
-    class FailureCollection
+    // A collection of code analysis failures
+    class MessageCollection
     {
         internal readonly MessageFactory Factory;
 
-        public FailureCollection(MessageGeneratorService provider, string filePath, List<MessageText> failures)
+        public MessageCollection(MessageGenerator provider, string filePath, List<MessageText> failures)
         {
             this.Factory = new MessageFactory(new MessageSnapshot(filePath, failures, 0));
         }

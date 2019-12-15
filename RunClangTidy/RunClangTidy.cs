@@ -43,7 +43,7 @@ namespace CodingToolBox
         #region Package Members
 
         [Import]
-        public IAnalysisFailuresService m_analysisService;
+        public IMessageGenerator m_analysisService;
 
         /// <summary>
         /// Initialization of the package; this method is called right after the package is sited, so this is the place

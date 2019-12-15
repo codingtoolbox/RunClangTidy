@@ -41,7 +41,7 @@ namespace CodingToolBox.Command
         private readonly AsyncPackage package;
         private readonly OleMenuCommand menuItem;
 
-        private IAnalysisFailuresService m_errorService;
+        private IMessageGenerator m_errorService;
         private CppProject m_cppSupport;
         /// <summary>
         /// Initializes a new instance of the <see cref="RunTidy"/> class.
@@ -49,7 +49,7 @@ namespace CodingToolBox.Command
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
         /// <param name="commandService">Command service to add command to, not null.</param>
-        private RunTidy(AsyncPackage package, OleMenuCommandService commandService, IAnalysisFailuresService errorService)
+        private RunTidy(AsyncPackage package, OleMenuCommandService commandService, IMessageGenerator errorService)
         {
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
@@ -182,7 +182,7 @@ namespace CodingToolBox.Command
                 .ContinueWith( _ =>
                 {
                     executor.Done();
-                    m_errorService.SetAnalysisFailures(executor.Failures);
+                    m_errorService.SetMessages(executor.Failures);
                     TidyControl.RunningTidy.Dispose();
                     TidyControl.RunningTidy = null;
                 }, TaskScheduler.Default);

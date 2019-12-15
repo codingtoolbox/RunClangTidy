@@ -18,19 +18,17 @@ using VsUtil.Util;
 namespace CodingToolBox.Service
 {
 
- 
-
-    [Export(typeof(IAnalysisFailuresService))]
+    [Export(typeof(IMessageGenerator))]
     [Export(typeof(IViewTaggerProvider))]
     [TagType(typeof(IErrorTag))]
     [ContentType("text")]
     [TextViewRole(PredefinedTextViewRoles.Document)]
     [TextViewRole(PredefinedTextViewRoles.Analyzable)]
-    class MessageGeneratorService : ITableDataSource, 
-        IAnalysisFailuresService, 
+    class MessageGenerator : ITableDataSource, 
+        IMessageGenerator, 
         IViewTaggerProvider
     {
-        public void SetAnalysisFailures(List<MessageText> col)
+        public void SetMessages(List<MessageText> col)
         {
             Dictionary<string, List<MessageText>> errorsByFile = new Dictionary<string, List<MessageText>> ();
             foreach (var f  in col)
@@ -53,7 +51,7 @@ namespace CodingToolBox.Service
                 RemoveFailureCollection(f);
             foreach (var e in errorsByFile)
             {
-                FailureCollection f = new FailureCollection(this, e.Key, e.Value);
+                MessageCollection f = new MessageCollection(this, e.Key, e.Value);
                 AddFailureCollection(f);
             }
             UpdateAllSinks();
@@ -99,12 +97,12 @@ namespace CodingToolBox.Service
         const string _datasource = "clang tidy";
 
         private readonly List<SinkManager> _managers = new List<SinkManager>();      // Also used for locks
-        private readonly List<FailureCollection> _failures = new List<FailureCollection>();
+        private readonly List<MessageCollection> _failures = new List<MessageCollection>();
         private Dictionary<string, List<MessageText>> m_errorsByFile;
         private List<MessageTagger> m_taggers = new List<MessageTagger>();
 
         [ImportingConstructor]
-        internal MessageGeneratorService([Import]ITableManagerProvider provider, [Import] ITextDocumentFactoryService textDocumentFactoryService, [Import] IClassifierAggregatorService classifierAggregatorService)
+        internal MessageGenerator([Import]ITableManagerProvider provider, [Import] ITextDocumentFactoryService textDocumentFactoryService, [Import] IClassifierAggregatorService classifierAggregatorService)
         {
             this.ErrorTableManager = provider.GetTableManager(StandardTables.ErrorsTable);
             this.TextDocumentFactoryService = textDocumentFactoryService;
@@ -203,7 +201,7 @@ namespace CodingToolBox.Service
             }
         }
 
-        public void AddFailureCollection(FailureCollection с)
+        public void AddFailureCollection(MessageCollection с)
         {
             // This call will always happen on the UI thread (it is a side-effect of adding or removing the 1st/last tagger).
             lock (_managers)
@@ -218,7 +216,7 @@ namespace CodingToolBox.Service
             }
         }
 
-        public void RemoveFailureCollection(FailureCollection с)
+        public void RemoveFailureCollection(MessageCollection с)
         {
             // This call will always happen on the UI thread (it is a side-effect of adding or removing the 1st/last tagger).
             lock (_managers)
@@ -272,10 +270,10 @@ namespace CodingToolBox.Service
 
     class SinkManager : IDisposable
     {
-        private readonly MessageGeneratorService _provider;
+        private readonly MessageGenerator _provider;
         private readonly ITableDataSink _sink;
 
-        internal SinkManager(MessageGeneratorService p, ITableDataSink sink)
+        internal SinkManager(MessageGenerator p, ITableDataSink sink)
         {
             _provider = p;
             _sink = sink;
@@ -289,12 +287,12 @@ namespace CodingToolBox.Service
             _provider.RemoveSinkManager(this);
         }
 
-        internal void AddFailureCollection(FailureCollection c)
+        internal void AddFailureCollection(MessageCollection c)
         {
             _sink.AddFactory(c.Factory);
         }
 
-        internal void RemoveFailureCollection(FailureCollection c)
+        internal void RemoveFailureCollection(MessageCollection c)
         {
             _sink.RemoveFactory(c.Factory);
         }
@@ -306,8 +304,8 @@ namespace CodingToolBox.Service
     }
 
 
-    public interface IAnalysisFailuresService
+    public interface IMessageGenerator
     {
-        void SetAnalysisFailures(List<MessageText> col);
+        void SetMessages(List<MessageText> col);
     }
 }

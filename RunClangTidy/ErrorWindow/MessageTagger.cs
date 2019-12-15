@@ -14,9 +14,9 @@ namespace CodingToolBox.ErrorWindow
     class MessageTagger : ITagger<IErrorTag>, IDisposable
     {
         private readonly List<EditorMessage> m_failures = new List<EditorMessage>();
-        private readonly MessageGeneratorService m_service;
+        private readonly MessageGenerator m_service;
         private readonly ITextBuffer m_buffer;
-        public MessageTagger(string filePath, MessageGeneratorService service, ITextBuffer buffer) 
+        public MessageTagger(string filePath, MessageGenerator service, ITextBuffer buffer) 
         {
             m_buffer = buffer;
             m_service = service;

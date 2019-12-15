@@ -51,7 +51,7 @@
     <Compile Include="Command\RunTidy.cs" />
     <Compile Include="Command\RunTidyFile.cs" />
     <Compile Include="Command\TidyControl.cs" />
-    <Compile Include="Service\FailureCollection.cs" />
+    <Compile Include="Service\MessageCollection.cs" />
     <Compile Include="ErrorWindow\MessageFactory.cs" />
     <Compile Include="ErrorWindow\MessageSnapshot.cs" />
     <Compile Include="ErrorWindow\MessageTagger.cs" />
@@ -64,7 +64,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Service\AnalysisFailuresService.cs" />
+    <Compile Include="Service\MessageGenerator.cs" />
     <Compile Include="Service\InvokeClangTidyService.cs" />
     <Compile Include="Util\AnalysisOutputParser.cs" />
     <Compile Include="Util\CompileDatabaseEntry.cs" />

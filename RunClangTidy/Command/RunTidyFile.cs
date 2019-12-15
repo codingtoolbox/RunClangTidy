@@ -38,7 +38,7 @@ namespace CodingToolBox.Command
         /// </summary>
         private readonly AsyncPackage package;
 
-        IAnalysisFailuresService m_errorService;
+        IMessageGenerator m_errorService;
 
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace CodingToolBox.Command
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
         /// <param name="commandService">Command service to add command to, not null.</param>
-        private RunTidyFile(AsyncPackage package, OleMenuCommandService commandService, IAnalysisFailuresService errorService)
+        private RunTidyFile(AsyncPackage package, OleMenuCommandService commandService, IMessageGenerator errorService)
         {
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
@@ -181,7 +181,7 @@ namespace CodingToolBox.Command
                 await Task.WhenAll(tasks.ToArray()).ContinueWith(_ =>
                 {
                     executeShell.Done();
-                    m_errorService.SetAnalysisFailures(executeShell.Failures);
+                    m_errorService.SetMessages(executeShell.Failures);
                     TidyControl.RunningTidy.Dispose();
                     TidyControl.RunningTidy = null;
                 }, TaskScheduler.Default);
