@@ -63,9 +63,11 @@ namespace CodingToolBox.Service
                 {
                     var process = executor.ExecuteCommand(Quote(tidyPath), "-p " + Quote(compileDatabasePath) + " " + tidyOptions + " " + Quote(fileArray[offset]));
                     if (process == null)
-                        return;
+                        continue;
                     runningChecks.Add(process);
                 }
+                if (runningChecks.Count == 0)
+                    continue;
                 try
                 {
                     await Task.WhenAny(runningChecks.Select(x =>x.WaitForExitAsync(cancel)));
