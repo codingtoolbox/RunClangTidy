@@ -4,7 +4,9 @@
         <Identity Id="RunClangTidy.2A82B0BF-7D3C-4D36-BB67-23449A2FC9A1" Version="1.0" Language="en-US" Publisher="Vladimir Petko" />
         <DisplayName>RunClangTidy</DisplayName>
         <Description xml:space="preserve">RunClangTidy - a simple integration with clang-tidy</Description>
-        <Preview>true</Preview>
+        <MoreInfo>https://github.com/codingtoolbox/RunClangTidy</MoreInfo>
+        <License>LICENSE.txt</License>
+        <Tags>clang clang-tidy</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 17.0)" />

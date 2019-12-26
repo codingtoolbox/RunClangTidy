@@ -1,18 +1,14 @@
 ﻿using CodingToolBox.Util;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Runtime.CompilerServices;
-using System.IO;
-using Microsoft.VisualStudio.Threading;
-using IAsyncServiceProvider = Microsoft.VisualStudio.Shell.IAsyncServiceProvider;
-using Task = System.Threading.Tasks.Task;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.Threading;
+using System;
 using System.Collections.Generic;
-using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Linq;
-using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Task = System.Threading.Tasks.Task;
 
 namespace CodingToolBox.Service
 {

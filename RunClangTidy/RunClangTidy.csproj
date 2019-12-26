@@ -489,6 +489,10 @@
     <Content Include="Command\Resources\GenerateDatabase.png" />
     <Content Include="Command\Resources\RunTidy.png" />
     <Content Include="Command\Resources\RunTidyFile.png" />
+    <Content Include="LICENSE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
